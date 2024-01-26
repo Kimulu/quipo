@@ -1,0 +1,112 @@
+<!-- templates/dashboard.html -->
+{% include 'header.html' %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-{{ messages[0][1] }} alert-dismissible fade show" role="alert" style="background-color: rgba(151, 240, 17, 0.961);color:black;font-weight:bold;text-align: center;">
+      {{ messages[0] }}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<body>
+  <div class="container-fluid">
+    <div class="row flex-nowrap">
+      <!-- Sidebar -->
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-success">
+        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+          <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-5 d-none d-sm-inline">Menu</span>
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+           <li class="nav-item">
+                        <a href="/" class="nav-link align-middle px-0" style="color:white;">
+                             <i class="fa-solid fa-home fa-xl"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle" style="color:white;">
+                             <i class="fa-solid fa-dashboard fa-xl"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle" style="color:white;">
+                             <i class="fa-solid fa-calendar fa-xl"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+                    </li>
+                    <li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle " style="color:white;">
+                             <i class="fa-solid fa-settings fa-xl"></i> <span class="ms-1 d-none d-sm-inline">Settings</span></a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link px-0" style="color:white;"> <span class="d-none d-sm-inline">Darkmode</a>
+                            </li>
+                        </ul>
+                    </li>
+                  
+          <hr>
+          <div class="dropdown pb-4">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ url_for('static', filename='images/user.svg') }}" alt="User" width="30" height="30" class="rounded-circle">
+              <span class="d-none d-sm-inline mx-1"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="col py-3">
+        <div class="container mt-5">
+          <h2 class="mb-4">Dashboard</h2>
+          <p>Welcome, {{ user.username }}!</p>
+
+          <!-- Display user's order details -->
+           <div class="mt-4">
+            {% if user_orders %}
+              <h3>Your Orders:</h3>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in user_orders %}
+                    <tr>
+                      <td>{{ order.product_name }}</td>
+                      <td>{{ order.quantity }}</td>
+                      <td>${{ order.price }}</td>
+                      <!-- Add more details as needed -->
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <p>Your orders section is empty.</p>
+              <a href="{{ url_for('shop') }}" class="btn btn-primary">Go to Shop</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    $(document).ready(function() {
+      $(".alert").fadeTo(2000, 500).slideUp(1000, function(){
+        $(".alert").slideUp(500);
+      });
+    });
+  </script>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/tiny-slider.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+</html>

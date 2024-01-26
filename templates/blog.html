@@ -1,0 +1,210 @@
+<!-- templates/index.html -->
+{% include 'header.html' %}
+
+	<body>
+{% include 'navbar.html' %}
+
+		
+
+		<!-- Start Blog Section -->
+		<div class="blog-section">
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Post 1 -->
+            <div class="col-12 col-sm-6 col-md-4 mb-5">
+                <div class="post-entry">
+                    <a href="#" class="post-thumbnail">
+                        <img src="{{ url_for('static', filename='images/post-1.jpg') }}" alt="Image" class="img-fluid">
+                    </a>
+                    <div class="post-content-entry">
+                        <h3><a href="#">New Home Decor Trends</a></h3>
+                        <div class="meta">
+                            <span>by <a href="#">Emily Johnson</a></span>
+                            <span>on <a href="#">Jan 5, 2022</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 2 -->
+            <div class="col-12 col-sm-6 col-md-4 mb-5">
+                <div class="post-entry">
+                    <a href="#" class="post-thumbnail">
+                        <img src="{{ url_for('static', filename='images/post-2.jpg') }}" alt="Image" class="img-fluid">
+                    </a>
+                    <div class="post-content-entry">
+                        <h3><a href="#">Effective Home Organization Tips</a></h3>
+                        <div class="meta">
+                            <span>by <a href="#">John Anderson</a></span>
+                            <span>on <a href="#">Jan 2, 2022</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="col-12 col-sm-6 col-md-4 mb-5">
+                <div class="post-entry">
+                    <a href="#" class="post-thumbnail">
+                        <img src="{{ url_for('static', filename='images/post-3.jpg') }}" alt="Image" class="img-fluid">
+                    </a>
+                    <div class="post-content-entry">
+                        <h3><a href="#">Creative DIY Home Projects</a></h3>
+                        <div class="meta">
+                            <span>by <a href="#">Samantha Carter</a></span>
+                            <span>on <a href="#">Dec 28, 2021</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Repeat the structure for the next three blog posts -->
+
+        </div>
+    </div>
+</div>
+
+		<!-- End Blog Section -->
+
+		
+
+		<!-- Start Footer Section -->
+		<footer class="footer-section">
+			<div class="container relative">
+
+				<div class="sofa-img">
+					<img src="{{ url_for('static', filename='images/sofa.png') }}" alt="Image" class="img-fluid">
+				</div>
+
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="subscription-form">
+							<h3 class="d-flex align-items-center"><span class="me-1"><img src="{{ url_for('static', filename='images/envelope-outline.svg') }}" alt="Image" class="img-fluid"></span><span>Subscribe to Newsletter</span></h3>
+
+							<form action="#" class="row g-3">
+								<div class="col-auto">
+									<input type="text" class="form-control" placeholder="Enter your name">
+								</div>
+								<div class="col-auto">
+									<input type="email" class="form-control" placeholder="Enter your email">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+										<span class="fa fa-paper-plane"></span>
+									</button>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="row g-5 mb-5">
+    <div class="col-lg-4">
+        <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Quipo<span>.</span></a></div>
+        <p class="mb-4">Discover quality furniture at YourFurnitureStore. We make it easy to turn your space into a comfortable and stylish haven. From classic to modern designs, our pieces are crafted with precision and passion.</p>
+    
+
+						<ul class="list-unstyled custom-social">
+							<li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+							<li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-8">
+						<div class="row links-wrap">
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">About us</a></li>
+									<li><a href="#">Services</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact us</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Support</a></li>
+									<li><a href="#">Knowledge base</a></li>
+									<li><a href="#">Live chat</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Jobs</a></li>
+									<li><a href="#">Our team</a></li>
+									<li><a href="#">Leadership</a></li>
+									<li><a href="#">Privacy Policy</a></li>
+								</ul>
+							</div>
+
+							<div class="col-6 col-sm-6 col-md-3">
+								<ul class="list-unstyled">
+									<li><a href="#">Nordic Chair</a></li>
+									<li><a href="#">Kruzo Aero</a></li>
+									<li><a href="#">Ergonomic Chair</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="border-top copyright">
+					<div class="row pt-4">
+						<div class="col-lg-6">
+							<p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Developed by <a href="https://www.linkedin.com/in/michael-kimulu/">Michael Kimulu</a>
+            </p>
+						</div>
+
+						<div class="col-lg-6 text-center text-lg-end">
+							<ul class="list-unstyled d-inline-flex ms-auto">
+								<li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</footer>
+		<!-- End Footer Section -->	
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tiny-slider.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to update the cart counter via AJAX
+        function updateCartCounter() {
+            // Make an AJAX request to the Flask route
+            fetch('/cart_count')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the cart counter
+                    var counter = document.getElementById('cart-counter');
+                    counter.textContent = data.count;
+                })
+                .catch(error => {
+                    console.error('Error updating cart counter:', error);
+                });
+        }
+
+        // Update the cart counter on page load
+        updateCartCounter();
+
+        // You can also call this function whenever an item is added or removed from the cart
+    });
+</script>
+
+
+
+	</body>
+
+</html>

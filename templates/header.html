@@ -1,0 +1,59 @@
+<!-- templates/header.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Untree.co">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="bootstrap, bootstrap4" />
+
+  <!-- Bootstrap CSS -->
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <!-- Paypal -->
+  <script src="https://www.paypal.com/sdk/js?client-id=ATUyoIRvJIZ9jDhaEswH-1z4o2KXHZk0-mc1Ale3LZ-FMEEtGm4eHi7KwRy8r3S49CeIuJ-LXEMtFIBQ"></script>
+  
+ <!-- jquery -->
+ <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+  <link href="{{ url_for('static', filename='css/tiny-slider.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  <script defer src="{{ url_for('static', filename='js/brands.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/solid.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/fontawesome.js') }}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to update the cart counter via AJAX
+        function updateCartCounter() {
+            // Make an AJAX request to the Flask route
+            fetch('/cart_count')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the cart counter
+                    var counter = document.getElementById('cart-counter');
+                    counter.textContent = data.count;
+                })
+                .catch(error => {
+                    console.error('Error updating cart counter:', error);
+                });
+        }
+
+        // Update the cart counter on page load
+        updateCartCounter();
+
+        // You can also call this function whenever an item is added or removed from the cart
+    });
+
+
+</script>
+<script>
+  $(document).ready(function() {
+    $(".alert").fadeTo(4000, 0).hide(0);
+  });
+</script>
+  <title>Quipo - Furniture Store </title>
+</head>

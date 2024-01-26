@@ -1,0 +1,244 @@
+<!-- cart.html -->
+{% include 'header.html' %}
+
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="untree_co-section before-footer-section">
+        <div class="container">
+            <div class="row mb-5">
+                <form class="col-md-12" method="post">
+                    <div class="site-blocks-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="product-thumbnail">Image</th>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-price">Price</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-total">Total</th>
+                                    <th class="product-remove">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product_id, details in cart.items() %}
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <!-- Replace 'product_image_url' with the actual attribute name in your Product model for image URL -->
+                                            <img src="{{ url_for('static', filename='images/' + details.image_url) }}" alt="Product Image" class="img-fluid">
+                                        </td>
+                                        <td class="product-name">
+                                            <h2 class="h5 text-black">{{ details.name }}</h2>
+                                        </td>
+                                        <td>${{ details.price }}</td>
+                                       <td>
+									   <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+									   <div class="input-group-prepend">
+									   <button class="btn btn-outline-black decrease" type="button" data-product-id="{{ product_id }}">-</button>
+									   </div>
+									   <input type="text" class="form-control text-center quantity-amount" value="{{ details.quantity}}" data-product-id="{{ product_id }}" data-price="{{ details.price }}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly>
+									   <div class="input-group-append">
+									   <button class="btn btn-outline-black increase" type="button" data-product-id="{{ product_id }}">+</button>
+
+									   </div>
+									   </div>
+									</td>
+
+                                        <td data-total-id="{{ product_id }}">${{ details.price * details.quantity }}</td>
+
+                                        <td><button class="btn btn-black btn-sm remove-button" data-product-id="{{ product_id }}">X</button></td>
+                                    </tr>
+
+
+                                {% endfor %}
+                                    <tr>
+                                        <td colspan="4" class="text-right"><strong>Total:</strong></td>
+                                        <td id="cart-total">${{ total }}</td>
+                                        <td></td>
+                                    </tr>
+                                 </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <!-- Your existing code for checkout and continue shopping can go here -->
+                <div class="col-md-6">
+                    <button class="btn btn-black btn-sm btn-block"> <--Back to Shopping</button>
+                </div>
+                <div class="col-md-6">
+                    <a href="{{ url_for('checkout') }}"><button class="btn btn-outline-black btn-sm btn-block">Checkout</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get all elements with the class 'quantity-container'
+        var quantityContainers = document.querySelectorAll('.quantity-container');
+
+        // Add click event listeners to the increase and decrease buttons
+        quantityContainers.forEach(function (container) {
+            var increaseButton = container.querySelector('.increase');
+            var decreaseButton = container.querySelector('.decrease');
+            var productId = increaseButton.getAttribute('data-product-id');
+
+            increaseButton.addEventListener('click', function () {
+                // Call the changeQuantity function with the product ID and change value
+                changeQuantity(productId, 1);
+            });
+
+            decreaseButton.addEventListener('click', function () {
+                // Call the changeQuantity function with the product ID and change value
+                changeQuantity(productId, -1);
+            });
+        });
+
+        // Function to change the quantity via AJAX
+        function changeQuantity(productId, change) {
+            // Make an AJAX request to the Flask route
+            fetch('/change_quantity', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'product_id': productId,
+                    'change': change,
+                }),
+            })
+            .then(response => {
+                // Handle the response if needed
+                console.log('Quantity changed successfully');
+
+                // Update the total in the table
+                updateTotal(productId);
+            })
+            .catch(error => {
+                console.error('Error changing quantity:', error);
+            });
+        }
+
+        // Function to update the total in the table
+        function updateTotal(productId) {
+            // Calculate the new total based on quantity and price
+            var quantityInput = document.querySelector(`.quantity-amount[data-product-id="${productId}"]`);
+            var price = parseFloat(quantityInput.getAttribute('data-price'));
+            var newQuantity = parseInt(quantityInput.value);
+            var newTotal = price * newQuantity;
+
+            // Update the total in the table
+            var totalCell = document.querySelector(`td[data-total-id="${productId}"]`);
+            totalCell.textContent = `$${newTotal.toFixed(2)}`;
+
+            // Calculate and update the overall cart total
+            calculateCartTotal();
+        }
+
+        // Function to calculate the overall cart total and update the displayed total
+        function calculateCartTotal() {
+            var totalCells = document.querySelectorAll('td[data-total-id]');
+            var overallTotal = Array.from(totalCells).reduce(function (acc, totalCell) {
+                return acc + parseFloat(totalCell.textContent.replace('$', ''));
+            }, 0.0);
+
+            // Update the displayed total
+            var cartTotalElement = document.getElementById('cart-total');
+            if (cartTotalElement) {
+                cartTotalElement.textContent = `$${overallTotal.toFixed(2)}`;
+            }
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var removeButtons = document.querySelectorAll('.remove-button');
+
+        removeButtons.forEach(function (button) {
+            var productId = button.getAttribute('data-product-id');
+
+            button.addEventListener('click', function () {
+                // Call the removeProduct function with the product ID
+                removeProduct(productId);
+            });
+        });
+
+      function removeProduct(productId) {
+    // Make an AJAX request to the Flask route
+    fetch('/remove_from_cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'product_id': productId,
+        }),
+    })
+    .then(response => response.json())  // Parse the JSON response
+    .then(data => {
+        // Handle the response data
+        if (data.status === 'success') {
+            console.log('Product removed successfully');
+            // Update the total in the table
+            updateTotal(productId);
+        } else {
+            console.error('Error removing product:', data.status);
+        }
+    })
+    .catch(error => {
+        console.error('Error removing product:', error);
+    });
+}
+
+        // Function to update the total in the table
+        function updateTotal(productId) {
+            // Calculate the new total based on quantity and price
+            var quantityInput = document.querySelector(`.quantity-amount[data-product-id="${productId}"]`);
+            var price = parseFloat(quantityInput.getAttribute('data-price'));
+            var newQuantity = parseInt(quantityInput.value);
+            var newTotal = price * newQuantity;
+
+            // Update the total in the table
+            var totalCell = document.querySelector(`td[data-total-id="${productId}"]`);
+            totalCell.textContent = `$${newTotal.toFixed(2)}`;
+
+            // Calculate and update the overall cart total
+            calculateCartTotal();
+        }
+
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to update the cart counter via AJAX
+        function updateCartCounter() {
+            // Make an AJAX request to the Flask route
+            fetch('/cart_count')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the cart counter
+                    var counter = document.getElementById('cart-counter');
+                    counter.textContent = data.count;
+                })
+                .catch(error => {
+                    console.error('Error updating cart counter:', error);
+                });
+        }
+
+        // Update the cart counter on page load
+        updateCartCounter();
+
+        // You can also call this function whenever an item is added or removed from the cart
+    });
+</script>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tiny-slider.js') }}"></script>
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+
+</html>

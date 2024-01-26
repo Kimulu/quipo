@@ -1,0 +1,81 @@
+<!-- templates/login.html -->
+{% include 'header.html' %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-{{ messages[0][1] }} alert-dismissible fade show" role="alert" style="background-color: rgba(151, 240, 17, 0.961); color: black; font-weight: bold; text-align: center;">
+      {{ messages[0] }}
+    </div>
+  {% endif %}
+{% endwith %}
+<body>
+  <div class="container mt-5 mx-auto">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <h3 class="mb-3">Login Now</h3>
+        <div class="bg-white shadow rounded">
+          <div class="row">
+            <div class="col-md-7 pe-0">
+              <div class="form-left h-100 py-5 px-5">
+                <form method="post" action="{{ url_for('login') }}" class="row g-4">
+                  {{ form.hidden_tag() }}
+                  <div class="col-12">
+                    {{ form.username.label(class="form-label") }}
+                    <div class="input-group">
+                      <div class="input-group-text"><i class="fa-solid fa-person fa-xl"></i> </div>
+                      {{ form.username(class="form-control") }}
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    {{ form.password.label(class="form-label") }}
+                    <div class="input-group">
+                      <div class="input-group-text"><i class="fa-solid fa-lock"></i> </div>
+                      {{ form.password(class="form-control") }}
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                      <label class="form-check-label" for="inlineFormCheck">Remember me</label>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <a href="#" class="float-end text-primary">Forgot Password?</a>
+                  </div>
+                   <div class="col-sm-2">
+                    <a href="{{ url_for('register') }}" class="float-end text-primary">Sign Up</a>
+                  </div>
+
+
+                  
+
+
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary px-4 float-end mt-4">Login</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-5 ps-0 d-none d-md-block">
+              <div class="form-right h-100 bg-success text-white text-center pt-5">
+                <i class="bi bi-bootstrap"></i>
+                <h1 style="padding-bottom:12%;padding-top: 16%; font-size:80px;">Quipo. </h1>
+                
+
+                 <h4>Welcome Back!!!</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-end text-secondary mt-3">Quipo. Your #1 Furniture Store</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/tiny-slider.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+
+</html>
