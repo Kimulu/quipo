@@ -1,8 +1,9 @@
-Template Name: Furni
-Template Author: Untree.co
-Template License: https://creativecommons.org/licenses/by/3.0/
-Author URI: https://untree.co/
+Quipo Furniture Store :
+Features - Paypal Integration , Functioning Cart and checkout Page, Responsive Design, Database to keep records of products and orders. Profile page for the user.
 
-Twitter: https://twitter.com/Untree_co
-Facebook: https://web.facebook.com/Untree.co/
-Pinterest: https://pinterest.com/Untree_co/
+Technologies : Flask Python Framework, Bootstrap 5, CSS3, HTML5, SQL Alchemy.
+
+Live Demo : (https://blueillustrate.pythonanywhere.com)
+
+
+![alt text](https://github.com/kimulu/quipo/blob/main/static/images/Screenshot from 2024-01-26 08-27-12.png?raw=true)
