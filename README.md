@@ -6,4 +6,4 @@ Technologies : Flask Python Framework, Bootstrap 5, CSS3, HTML5, SQL Alchemy.
 Live Demo : (https://blueillustrate.pythonanywhere.com)
 
 
-![alt text](https://github.com/Kimulu/quipo/blob/main/static/images/img-grid-1.jpg)
+![alt text](https://github.com/Kimulu/quipo/blob/main/static/images/screenshot1.png)
