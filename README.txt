@@ -3,4 +3,4 @@ Features - Paypal Integration , Functioning Cart and checkout Page, Responsive D
 
 Technologies : Flask Python Framework, Bootstrap 5, CSS3, HTML5, SQL Alchemy.
 
-Live Demo : <a href="https://blueillustrate.pythonanywhere.com/"> Click to view</a>
+Live Demo : (https://blueillustrate.pythonanywhere.com)
